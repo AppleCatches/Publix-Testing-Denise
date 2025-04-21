@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="/home/ryan/Desktop/publix-testing">
+        <classes>
+            <class name="pharmacy">
+                <methods>
+                    <include name="appointmentBooking"></include>
+                    <include name="locator"></include>
+                    <include name="disposal"></include>
+                    <include name="helpDrop"></include>
+                    <include name="dogMed"></include>
+                </methods>
+            </class>
+            <class name="orderAhead">
+                <methods>
+                    <include name="orderAheadDD"></include>
+                    <include name="pubsubOrder"></include>
+                    <include name="meatAndCheeseOrder"></include>
+                    <include name="mealCartManagement"></include>
+                    <include name="fishAndCheckout"></include>
+                </methods>
+            </class>
+            <class name="support">
+                <methods>
+                    <include name="contactUs"></include>
+                    <include name="publixPolicies"></include>
+                    <include name="publixFAQ"></include>
+                    <include name="clubPublix"></include>
+                    <include name="services"></include>
+                </methods>
+            </class>
+            <class name="cateringTest">
+                <methods>
+                    <include name="navigateToHomePage"/>
+                    <include name="selectPlattersAndCatering"/>
+                    <include name="viewAllSandwichPlatters"/>
+                    <include name="clickViewMap"/>
+                    <include name="enterStoreLocatorAddress"/>
+                    <include name="allowLocationButton"/>
+                    <include name="clickSearchButton"/>
+                    <include name="testAllowLocationOnPublix"/>
+                    <include name="selectStoreFromSearchResults"/>
+                    <include name="selectBoxedMealsFromMenuNav"/>
+                    <include name="selectBoxedMealItem"/>
+                    <include name="addCateringToOrder"/>
+                </methods>
+            </class>
+            <class name="giftCardsTest">
+                <methods>
+                    <include name="navigateToHomePage"/>
+                    <include name="selectGiftCardsMenu"/>
+                    <include name="selectMailGiftCard"/>
+                    <include name="customizeGiftCard"/>
+                </methods>
+            </class>
+            <class name="shoppingList">
+                <methods>
+                    <include name="weeklyAd"></include>
+                    <include name="searchAdd"></include>
+                    <include name="addNote"></include>
+                    <include name="updateQuantity"></include>
+                    <include name="clearList"></include>
+                </methods>
+            </class>
+            <class name="Testing2">
+                <methods>
+                    <include name="testPublixCakeOrderFlow"></include>
+                    <include name="testPublixDeliveryAddToCartAndCheckout"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
