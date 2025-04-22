@@ -1,99 +1,101 @@
-// Maven_project_2 / src / test / tests / giftCardsTest.java
+// Maven_project_2 / src / test /combined / combinedGiftCardsTest.java
+package tests;
 
-import base.baseTest;
 import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.support.ui.*;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 
-public class giftCardsTest extends baseTest {
-    WebDriverWait wait;
+public class giftCardsTest {
+    public WebDriver driver;
+    public WebDriverWait wait;
+
+    @BeforeClass
+    public void setUp() {
+        FirefoxOptions options = getFirefoxOptions();
+        WebDriverManager.firefoxdriver().setup();
+        driver = new FirefoxDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.manage().window().maximize();
+    }
+
+    private static FirefoxOptions getFirefoxOptions() {
+        FirefoxProfile profile = new FirefoxProfile();
+
+        // Automatically allow geolocation access
+        profile.setPreference("geo.prompt.testing", true);
+        profile.setPreference("geo.prompt.testing.allow", true);
+        profile.setPreference("geo.enabled", true);
+        profile.setPreference("permissions.default.geo", 1); // 1: Allow, 2: Block
+
+        FirefoxOptions options = new FirefoxOptions();
+        options.setProfile(profile);
+        return options;
+    }
+
     @Test
     public void navigateToHomePage() {
         driver.get("https://www.publix.com");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
     }
 
     @Test(dependsOnMethods = "navigateToHomePage")
     public void selectGiftCardsMenu() {
         WebElement giftCardsLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Gift Cards")));
         giftCardsLink.click();
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
     }
 
     @Test(dependsOnMethods = "selectGiftCardsMenu")
     public void selectMailGiftCard() {
-        // Step 3: Click “Mail a gift card” using href locator
         WebElement mailGiftCardButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("a[href='/gift-cards/order/individual']")));
         mailGiftCardButton.click();
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
     }
 
     @Test(dependsOnMethods = "selectMailGiftCard")
     public void customizeGiftCard() {
-        // Step 4: Scroll down to ensure visibility of all elements
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 500);");
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
 
-        // Step 5: Increase quantity from 1 to 3 using increment button
         WebElement incrementButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("button[aria-label*='increase quantity']")));
         incrementButton.click(); // 1 -> 2
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
         incrementButton.click(); // 2 -> 3
 
-        // Step 6: Select $50 gift card amount
         WebElement amount50 = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//span[@class='option-label' and text()='$50']")));
         amount50.click();
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
 
-        // Step 7: Click the "Add a message" button (icon + text style)
         WebElement addMessageButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("button.p-button.button--text.button--icon-left")));
         addMessageButton.click();
-        try {
-            Thread.sleep(2000); // Slow down by 2 seconds
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(2000);
 
-        // Step 8: Type custom message "From Grandma" in the textarea
         WebElement messageBox = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//textarea[@placeholder='Type custom message']")));
         messageBox.clear();
         messageBox.sendKeys("From Grandma");
+        sleep(2000);
+    }
+
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    private void sleep(long millis) {
         try {
-            Thread.sleep(2000); // Slow down by 2 seconds
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
