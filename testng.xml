@@ -30,7 +30,7 @@
                     <include name="services"></include>
                 </methods>
             </class>
-            <class name="cateringTest">
+            <class name="tests.cateringTest">
                 <methods>
                     <include name="navigateToHomePage"/>
                     <include name="selectPlattersAndCatering"/>
@@ -43,10 +43,9 @@
                     <include name="selectStoreFromSearchResults"/>
                     <include name="selectBoxedMealsFromMenuNav"/>
                     <include name="selectBoxedMealItem"/>
-                    <include name="addCateringToOrder"/>
                 </methods>
             </class>
-            <class name="giftCardsTest">
+            <class name="tests.giftCardsTest">
                 <methods>
                     <include name="navigateToHomePage"/>
                     <include name="selectGiftCardsMenu"/>
