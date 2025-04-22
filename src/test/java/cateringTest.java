@@ -1,3 +1,6 @@
+// Maven_project_2 / src / test /combined / combinedCateringTest.java
+package tests;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.support.ui.*;
@@ -94,17 +97,16 @@ public class cateringTest {
     }
 
     @Test(dependsOnMethods = "clickSearchButton")
-    public void testAllowLocationOnPublix() throws InterruptedException {
-        Thread.sleep(500);
+    public void testAllowLocationOnPublix() {
         // Click the Publix location button (not browser popup)
         WebElement allowButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("button[data-qa-automation='button-Allow access to current location']")));
         allowButton.click();
 
         // Manually click the "Search" button if it doesn’t auto-trigger
-       // WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(
-       //         By.cssSelector("button[data-qa-automation='button-Search']")));
-       // searchButton.click();
+        WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("button[data-qa-automation='button-Search']")));
+        searchButton.click();
 
         // Wait for store result
         WebElement store = wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -120,7 +122,7 @@ public class cateringTest {
         try {
             // Wait for the results container to be visible
             wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("/html/body/div/section/div[2]/div/div[1]/div[3]/ul")));
+                    By.cssSelector("div[data-qa-automation='store-search-results']")));
 
             // Find the specific store with the name "The Shoppes at Grande Oak"
             WebElement chooseStoreBtn = wait.until(ExpectedConditions.elementToBeClickable(
@@ -155,40 +157,23 @@ public class cateringTest {
     @Test(dependsOnMethods = "selectBoxedMealsFromMenuNav")
     public void selectBoxedMealItem() {
         WebElement boxedMealItem = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("/html/body/div/section/div[5]/div/div[2]/div[9]/div/div[1]/div[1]/div/div[2]/div[1]/div/button")));
+                By.xpath("//a[contains(text(), 'Publix Deli Sub Sandwich Box Meal')]")));
         boxedMealItem.click();
         System.out.println("Selected Boxed Meal item");
     }
 
     @Test(dependsOnMethods = "selectBoxedMealItem")
-    public void addCateringToOrder() throws InterruptedException {
-        // Wait for the iframe to appear
-        WebElement iframe = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.cssSelector("iframe[aria-label='Customize window for Publix Deli Sub Sandwich Box Meal']")));
-
-        // Switch to the iframe
-        driver.switchTo().frame(iframe);
-        System.out.println("Switched into iframe");
-
-        // Now wait and click the button inside the iframe
+    public void addCateringToOrder() {
         WebElement addToOrderBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("builder-add-to-order-btn-sticky")));
-
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToOrderBtn);
-        Thread.sleep(500);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addToOrderBtn);
+                By.xpath("//button[contains(text(), 'Add to order')]")));
+        addToOrderBtn.click();
         System.out.println("Clicked 'Add to order'");
 
-        // Optionally: switch back to main page if needed
-       // driver.switchTo().defaultContent();
-
-        // Then continue to find the next button
         WebElement continueShoppingBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//*[@id=\"builder-add-to-order-btn-sticky\"]")));
+                By.xpath("//button[contains(text(), 'Continue shopping')]")));
         continueShoppingBtn.click();
+        System.out.println("Clicked 'Continue shopping'");
     }
-
-
 
     private void scrollIntoView(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
