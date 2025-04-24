@@ -1,6 +1,3 @@
-// Maven_project_2 / src / test /combined / combinedGiftCardsTest.java
-package tests;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.support.ui.*;
